@@ -3,13 +3,11 @@
  */
 package psosimulation
 
-class App {
-    val greeting: String
-        get() {
-            return "Hello World!"
-        }
-}
+import processing.core.PApplet
 
 fun main() {
-    println(App().greeting)
+    val psoDrawer = PSODrawer()
+    psoDrawer.targetFunction.function = { x, y -> psoDrawer.noise(x * 0.02f, y * 0.02f) * 360f }
+
+    PApplet.runSketch(arrayOf("PSODrawer"), psoDrawer)
 }
