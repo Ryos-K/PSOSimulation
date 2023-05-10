@@ -6,8 +6,9 @@ package psosimulation
 import processing.core.PApplet
 
 fun main() {
-    val psoDrawer = PSODrawer()
-    psoDrawer.targetFunction.function = { x, y -> psoDrawer.noise(x * 0.02f, y * 0.02f) * 360f }
 
+    val psoDrawer = PSODrawer()
+    val func: (Float, Float) -> Float = { x, y -> psoDrawer.noise(x * 0.03f, y * 0.03f) * 360f }
+    psoDrawer.targetFunction.function = func
     PApplet.runSketch(arrayOf("PSODrawer"), psoDrawer)
 }

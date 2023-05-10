@@ -19,7 +19,7 @@ class CacheFunctionValue(
     operator fun invoke(x: Float, y: Float): Float {
         if (x in 0f..width.toFloat() && y in 0f..height.toFloat())
                 return cache[x.toInt()][y.toInt()]
-        else return function(x, y)
+        else return 640f
     }
 
     public fun updateCache() {

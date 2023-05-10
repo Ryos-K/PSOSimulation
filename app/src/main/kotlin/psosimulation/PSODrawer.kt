@@ -12,7 +12,12 @@ class PSODrawer(
         private val width: Int = 400,
         private val height: Int = 400,
         private val frameRate: Float = 10f,
-        val targetFunction: CacheFunctionValue = CacheFunctionValue({ x, y -> 0f }, width, height),
+        val targetFunction: CacheFunctionValue = CacheFunctionValue({ _, _ -> 0f }, 400, 400),
+        val psoSimulator: PSOSimulator =
+                PSOSimulator(
+                        targetFunction = targetFunction,
+                        dimensions = intArrayOf(width, height)
+                )
 ) : PApplet() {
 
     override fun settings() {
@@ -23,13 +28,24 @@ class PSODrawer(
         background(127)
         frameRate(frameRate)
         noStroke()
+        psoSimulator.sprinkleParticles()
     }
 
     override fun draw() {
         background(127)
         drawContour()
+
+        psoSimulator.nextIteration()
+        psoSimulator.particles.forEach { particle ->
+            fill(0f, 100f, 100f)
+            ellipse(particle.position[0], particle.position[1], 5f, 5f)
+        }
+
         // fill(180f, 100f, 100f)
         // ellipse(200f, 200f, 100f, 100f)
+
+        // captureFrame
+        if (frameCount < 100) saveFrame("frames/####.png")
     }
 
     private fun drawContour() {
